@@ -1,36 +1,30 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ResuAI – AI-Powered Resume Review Platform
 
-## Getting Started
+ResuAI is a modern web app that helps users upload their resumes and receive AI-generated feedback and scoring in seconds.
 
-First, run the development server:
+Built using **Next.js 14**, **TypeScript**, **Tailwind CSS**, and **OpenAI GPT-4**, it provides fast, intelligent resume evaluation with a clean and responsive UI.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- ✅ Upload PDF or DOCX resumes
+- ✅ Get resume scored by OpenAI (content, targeting, grammar)
+- ✅ Receive actionable feedback
+- ✅ Dark mode support
+- ✅ Firebase/Supabase-based authentication (email login)
+- ✅ Mobile-friendly UI
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🔧 Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+| Area       | Stack                             |
+| ---------- | --------------------------------- |
+| Frontend   | Next.js 14 (App Router), Tailwind |
+| Auth       | Firebase / Supabase               |
+| AI Backend | OpenAI API (GPT-4-turbo)          |
+| Hosting    | Vercel                            |
+| State      | React Hooks, useContext           |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
