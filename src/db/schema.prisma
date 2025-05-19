@@ -1,0 +1,37 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  resumes   ResumeReview[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt @default(now())
+}
+
+model ResumeReview {
+  id                   String   @id @default(uuid())
+  user                User     @relation(fields: [userId], references: [id])
+  userId              String
+
+  // File info (optional if not storing files in DB)
+  fileUrl             String?   // From Firebase/Supabase Storage
+
+  // Resume review content
+  resumeText          String    // Extracted raw text from resume
+  jobDescriptionText  String?   // Optional if user provided JD
+  resumeScore         Int?      // AI-given quality score
+  jobMatchScore       Int?      // AI-given match score
+
+  feedbackResume      String?   // Feedback on general resume quality
+  feedbackMatch       String?   // Feedback on JD alignment
+
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt @default(now())
+}

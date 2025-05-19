@@ -3,10 +3,11 @@ import Link from "next/link";
 import { shadow } from "@/styles/utils";
 import { Button } from "@/components/ui/button";
 import DarkModeToggle from "./DarkModeToggle";
-import LogoutButton from "./LogoutButton";
+import { getUser } from "@/auth/server";
+import LogOutButton from "./LogOutButton";
 
-function Header() {
-  const user = 1;
+async function Header() {
+  const user = await getUser();
 
   return (
     <header
@@ -22,17 +23,17 @@ function Header() {
           width={60}
         />
         <h1 className="flex flex-col pb-1 text-2xl font-semibold leading-6">
-          Resume
-          <span>Booster</span>
+          Goat
+          <span>Notes</span>
         </h1>
       </Link>
       <div className="flex gap-4">
         {user ? (
-          <LogoutButton />
+          <LogOutButton />
         ) : (
           <>
             <Button asChild variant="outline">
-              <Link href="/Sign-up" className="hidden sm:block">
+              <Link href="/sign-up" className="hidden sm:block">
                 Sign Up
               </Link>
             </Button>
