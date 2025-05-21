@@ -23,8 +23,8 @@ async function Header() {
           width={60}
         />
         <h1 className="flex flex-col pb-1 text-2xl font-semibold leading-6">
-          Goat
-          <span>Notes</span>
+          Resume
+          <span>Booster</span>
         </h1>
       </Link>
       <div className="flex gap-4">
