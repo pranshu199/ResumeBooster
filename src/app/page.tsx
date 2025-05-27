@@ -1,37 +1,60 @@
+"use client";
+
 import { getUser } from "@/auth/server";
-import AskAiButton from "@/components/AskAiButton";
-import NewNoteButton from "@/components/ui/NewNoteButton";
 import NoteTextInput from "@/components/ui/NoteTextInput";
-import { prisma } from "@/db/prisma";
-import React from "react";
+import ResumeUpload from "@/components/ui/ResumeUpload";
+import React, { useEffect, useState } from "react";
 
-type Props = {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-};
+function HomePage() {
+  const [resumeText, setResumeText] = useState("");
+  const [jobDescription, setJobDescription] = useState("");
+  const [reviewResult, setReviewResult] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-async function HomePage({ searchParams }: Props) {
-  const noteIdParam = (await searchParams).noteId;
-  const user = await getUser();
-
-  const noteId = Array.isArray(noteIdParam)
-    ? noteIdParam[0]
-    : noteIdParam || "";
-
-  // const note = await prisma.note.findUnique({
-  //   where: { id: noteId, authorId: user?.id },
-  // });
-  const note = {
-    NoteId: 1,
-    text: "Hi",
+  const handleSubmit = () => {
+    // setLoading(true);
+    // try {
+    //   const response = await fetch("/api/review", {
+    //     method: "POST",
+    //     body: JSON.stringify({ resumeText, jobDescription }),
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   });
+    //   const result = await response.json();
+    //   setReviewResult(result);
+    // } catch (err) {
+    //   console.error("Failed to get review:", err);
+    // } finally {
+    //   setLoading(false);
+    // }
+    useEffect(() => {}, [jobDescription, resumeText]);
   };
-
   return (
-    <div className="flex h-full flex-col items-center gap-4">
-      <div className="flex w-full max-w-4xl justify-content gap-2">
-        <AskAiButton user={user} />
-        <NewNoteButton user={user} />
-      </div>
-      <NoteTextInput noteId={noteId} startingNoteText={note?.text || ""} />
+    <div className="flex h-full flex-col items-center gap-4 p-6">
+      <ResumeUpload
+        onExtract={(text) => {
+          console.log("Extracted text:", text);
+          setResumeText(text);
+        }}
+      />
+      <NoteTextInput value={jobDescription} onChange={setJobDescription} />
+      <button
+        onClick={handleSubmit}
+        className="bg-indigo-600 text-white px-4 py-2 rounded"
+        disabled={!resumeText || !jobDescription || loading}
+      >
+        {loading ? "Analyzing..." : "Get AI Feedback"}
+      </button>
+
+      {reviewResult && (
+        <div className="mt-4 w-full max-w-3xl bg-zinc-800 text-white p-4 rounded-xl">
+          <h3 className="text-lg font-bold">Review Result</h3>
+          <pre className="mt-2 whitespace-pre-wrap text-sm">
+            {JSON.stringify(reviewResult, null, 2)}
+          </pre>
+        </div>
+      )}
     </div>
   );
 }
