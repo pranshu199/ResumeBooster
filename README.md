@@ -1,30 +1,39 @@
-# ResuAI – AI-Powered Resume Review Platform
+# 📄 Resume Review AI
 
-ResuAI is a modern web app that helps users upload their resumes and receive AI-generated feedback and scoring in seconds.
-
-Built using **Next.js 14**, **TypeScript**, **Tailwind CSS**, and **OpenAI GPT-4**, it provides fast, intelligent resume evaluation with a clean and responsive UI.
+An AI-powered web application that provides smart, actionable feedback on your resume based on a given job description. Upload your resume, paste a JD, and receive professional advice — all in real-time.
 
 ---
 
-## Features
+## 🚀 Features
 
-- ✅ Upload PDF or DOCX resumes
-- ✅ Get resume scored by OpenAI (content, targeting, grammar)
-- ✅ Receive actionable feedback
+- ✅ Upload and parse PDF resumes
+- ✅ Input job description for contextual feedback
+- ✅ Uses OpenAI GPT-4o to analyze and compare resume vs JD
+- ✅ Clean, actionable feedback formatted in valid HTML
+- ✅ User authentication with Supabase
 - ✅ Dark mode support
-- ✅ Firebase/Supabase-based authentication (email login)
-- ✅ Mobile-friendly UI
+- ✅ Fully serverless using Next.js 14 App Router
 
 ---
 
-## 🔧 Tech Stack
+## 🧠 Tech Stack
 
-| Area       | Stack                             |
-| ---------- | --------------------------------- |
-| Frontend   | Next.js 14 (App Router), Tailwind |
-| Auth       | Firebase / Supabase               |
-| AI Backend | OpenAI API (GPT-4-turbo)          |
-| Hosting    | Vercel                            |
-| State      | React Hooks, useContext           |
+| Tech             | Description                             |
+| ---------------- | --------------------------------------- |
+| **Next.js**      | React framework with App Router support |
+| **React**        | Frontend library                        |
+| **TypeScript**   | Strongly typed JavaScript               |
+| **Tailwind CSS** | Utility-first styling framework         |
+| **Supabase**     | Auth & Postgres backend-as-a-service    |
+| **Prisma**       | Type-safe ORM for PostgreSQL            |
+| **OpenAI API**   | GPT-4o for generating resume feedback   |
 
 ---
+
+## 📦 Installation
+
+```bash
+git clone https://github.com/your-username/resume-review-ai.git
+cd resume-review-ai
+npm install
+```
