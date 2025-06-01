@@ -14,7 +14,7 @@ export default async function HomePage() {
   }
 
   return (
-    <main className="h-screen  text-white flex items-center justify-center ">
+    <main className="min-h-screen overflow-auto  text-white flex items-center justify-center ">
       <section className="max-w-3xl text-center -translate-y-20">
         <h1 className="text-4xl sm:text-5xl font-bold mb-6 leading-tight">
           Supercharge Your Job Hunt with{" "}

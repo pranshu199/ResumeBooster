@@ -19,7 +19,7 @@ export default function RootLayout({
     <>
       <html lang="en" suppressHydrationWarning>
         <head />
-        <body className="overflow-hidden">
+        <body>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
