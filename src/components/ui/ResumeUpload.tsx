@@ -1,8 +1,11 @@
-// components/PDFTextExtractor.tsx
 "use client";
 
 import { useState } from "react";
 import pdfToText from "react-pdftotext";
+import { UploadCloud } from "lucide-react";
+import clsx from "clsx";
+import { Toaster } from "@/components/ui/sonner";
+import { toast } from "sonner";
 
 type ResumeUploadProps = {
   onExtract: (text: string) => void;
@@ -10,43 +13,85 @@ type ResumeUploadProps = {
 
 export default function ResumeUpload({ onExtract }: ResumeUploadProps) {
   const [file, setFile] = useState<File | null>(null);
+  const [dragActive, setDragActive] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    setFile(file);
-    pdfToText(file)
-      .then((extractedFileText) => {
-        onExtract(extractedFileText);
-      })
-      .catch((error) => {
-        console.error("Error extracting text from PDF:", error);
-        onExtract(""); // Clear text on error
+  const handleFiles = (fileList: FileList | null) => {
+    const uploadedFile = fileList?.[0];
+    if (!uploadedFile) return;
+
+    if (
+      ![
+        "application/pdf",
+        "application/msword",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      ].includes(uploadedFile.type)
+    ) {
+      setError("Only PDF or Word documents are allowed.");
+      return;
+    }
+
+    setError("");
+    toast.success("File uploaded successfully!");
+    setFile(uploadedFile);
+
+    pdfToText(uploadedFile)
+      .then((text) => onExtract(text))
+      .catch((err) => {
+        console.error("PDF extract error:", err);
+        onExtract("");
+        setError("Failed to extract text. Try another file.");
       });
   };
 
+  const handleDrop = (e: React.DragEvent<HTMLLabelElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(false);
+    handleFiles(e.dataTransfer.files);
+  };
+
+  const handleDrag = (e: React.DragEvent<HTMLLabelElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.type === "dragenter" || e.type === "dragover") setDragActive(true);
+    else if (e.type === "dragleave") setDragActive(false);
+  };
+
   return (
-    <div className="w-full  p-4 rounded-xl border border-zinc-700 bg-gradient-to-b from-green-900 to-green-0 text-white shadow-md">
+    <div className="w-full h-60 p-6 rounded-xl border border-zinc-700 bg-blue-900 text-white shadow-lg">
       <label
         htmlFor="resumeUpload"
-        className="block mb-4 text-lg font-semibold"
+        onDragEnter={handleDrag}
+        onDragOver={handleDrag}
+        onDragLeave={handleDrag}
+        onDrop={handleDrop}
+        className={clsx(
+          "flex flex-col h-40 items-center justify-center text-center border-2 border-dashed rounded-lg px-6 py-12 cursor-pointer transition-colors duration-200",
+          dragActive ? "border-blue-500 bg-green-800/40" : "border-zinc-500"
+        )}
       >
-        Upload Your Resume
+        <UploadCloud className="w-10 h-10 mb-3 text-blue-200" />
+        <p className="text-lg font-medium">
+          Drag and drop your resume here, or{" "}
+          <span className="">click to upload</span>
+        </p>
+        <input
+          id="resumeUpload"
+          type="file"
+          accept=".pdf,.doc,.docx"
+          onChange={(e) => handleFiles(e.target.files)}
+          className="hidden"
+        />
       </label>
-      <input
-        id="resumeUpload"
-        type="file"
-        accept=".pdf,.doc,.docx"
-        onChange={handleFileChange}
-        className="file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold
-               file:bg-blue-700 file:text-white hover:file:bg-blue-800
-               text-sm text-zinc-200 bg-zinc-800 rounded w-full"
-      />
+
       {file && (
-        <p className="mt-3 text-sm text-green-400 italic">
+        <p className="mt-3 text-sm text-black-400 italic">
           ✅ Selected: <span className="font-medium">{file.name}</span>
         </p>
       )}
+      {error && <p className="mt-2 text-sm text-red-400">⚠️ {error}</p>}
+      <Toaster richColors />
     </div>
   );
 }

@@ -58,34 +58,34 @@ export default function ClientResumeTool() {
         <Button
           variant={"default"}
           onClick={handleSubmit}
-          disabled={(!resumeText && !jobDescription) || loading}
-          className="bg-indigo-600 text-white w-full mt-1 ml-1 rounded hover:bg-indigo-500 transition-colors "
+          disabled={!resumeText || !jobDescription || loading}
+          className="bg-blue-900 text-white w-full mt-1 ml-1 rounded hover:bg-blue-500 transition-colors "
         >
           {loading ? "Analyzing..." : "Get AI Feedback"}
         </Button>
+        <Dialog open={showDialog} onOpenChange={setShowDialog}>
+          <DialogContent className="max-w-4xl overflow-hidden">
+            <DialogHeader>
+              <DialogTitle>ATS Analysis Result</DialogTitle>
+            </DialogHeader>
+            {reviewResult && (
+              <div className="max-h-[70vh] overflow-y-auto px-1">
+                <div
+                  className="bot-response text-muted-foreground text-sm"
+                  dangerouslySetInnerHTML={{ __html: reviewResult }}
+                />
+              </div>
+            )}
+            <DialogFooter className="mt-6">
+              <DialogClose asChild>
+                <button className="bg-blue-600 text-white px-4 py-2 rounded">
+                  Close
+                </button>
+              </DialogClose>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
-      <Dialog open={showDialog} onOpenChange={setShowDialog}>
-        <DialogContent className="max-w-3xl overflow-hidden">
-          <DialogHeader>
-            <DialogTitle>ATS Analysis Result</DialogTitle>
-          </DialogHeader>
-          {reviewResult && (
-            <div className="max-h-[70vh] overflow-y-auto px-1">
-              <div
-                className="bot-response text-muted-foreground text-sm"
-                dangerouslySetInnerHTML={{ __html: reviewResult }}
-              />
-            </div>
-          )}
-          <DialogFooter className="mt-6">
-            <DialogClose asChild>
-              <button className="bg-blue-600 text-white px-4 py-2 rounded">
-                Close
-              </button>
-            </DialogClose>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </>
   );
 }
