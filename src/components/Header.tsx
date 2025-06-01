@@ -4,7 +4,7 @@ import { shadow } from "@/styles/utils";
 import { Button } from "@/components/ui/button";
 import DarkModeToggle from "./DarkModeToggle";
 import { getUser } from "@/auth/server";
-import LogOutButton from "./LogOutButton";
+import LogoutButton from "./LogOutButton";
 
 async function Header() {
   const user = await getUser();
@@ -29,7 +29,7 @@ async function Header() {
       </Link>
       <div className="flex gap-4">
         {user ? (
-          <LogOutButton />
+          <LogoutButton />
         ) : (
           <>
             <Button asChild variant="outline">
