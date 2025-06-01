@@ -9,7 +9,6 @@ type ResumeUploadProps = {
 };
 
 export default function ResumeUpload({ onExtract }: ResumeUploadProps) {
-  const [text, setText] = useState("");
   const [file, setFile] = useState<File | null>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,12 +17,10 @@ export default function ResumeUpload({ onExtract }: ResumeUploadProps) {
     setFile(file);
     pdfToText(file)
       .then((extractedFileText) => {
-        setText(extractedFileText);
         onExtract(extractedFileText);
       })
       .catch((error) => {
         console.error("Error extracting text from PDF:", error);
-        setText("");
         onExtract(""); // Clear text on error
       });
   };

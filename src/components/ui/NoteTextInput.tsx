@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, ChangeEvent, useState, useRef } from "react";
+import { ChangeEvent, useState, useRef } from "react";
 import { Textarea } from "./textarea";
 import { toast } from "sonner";
 import { debounceTimeout } from "@/lib/constants";
@@ -11,7 +11,7 @@ type NoteTextInputProps = {
 };
 let updateTimeout: NodeJS.Timeout;
 
-function NoteTextInput({ value, onChange }: NoteTextInputProps) {
+function NoteTextInput({ onChange }: NoteTextInputProps) {
   //  Keep job Description Text in sync
   const [jobDescription, setJobDescription] = useState("");
   const jdRef = useRef<HTMLTextAreaElement>(null);
