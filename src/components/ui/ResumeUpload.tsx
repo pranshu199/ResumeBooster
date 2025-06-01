@@ -59,7 +59,7 @@ export default function ResumeUpload({ onExtract }: ResumeUploadProps) {
   };
 
   return (
-    <div className="w-full h-60 p-6 rounded-xl border border-zinc-700 bg-blue-900 text-white shadow-lg">
+    <div className="w-full h-40 p-6 rounded-xl border border-zinc-700 bg-blue-900 text-white shadow-lg">
       <label
         htmlFor="resumeUpload"
         onDragEnter={handleDrag}
