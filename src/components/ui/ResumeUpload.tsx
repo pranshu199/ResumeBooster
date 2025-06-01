@@ -26,7 +26,7 @@ export default function ResumeUpload({ onExtract }: ResumeUploadProps) {
   };
 
   return (
-    <div className="w-full ml-2 p-6 rounded-xl border border-zinc-700 bg-gradient-to-b from-green-900 to-green-950 text-white shadow-md">
+    <div className="w-full  p-4 rounded-xl border border-zinc-700 bg-gradient-to-b from-green-900 to-green-0 text-white shadow-md">
       <label
         htmlFor="resumeUpload"
         className="block mb-4 text-lg font-semibold"
