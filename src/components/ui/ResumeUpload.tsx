@@ -67,7 +67,7 @@ export default function ResumeUpload({ onExtract }: ResumeUploadProps) {
         onDragLeave={handleDrag}
         onDrop={handleDrop}
         className={clsx(
-          "flex flex-col h-40 items-center justify-center text-center border-2 border-dashed rounded-lg px-6 py-12 cursor-pointer transition-colors duration-200",
+          "flex flex-col h-30 items-center justify-center text-center border-2 border-dashed rounded-lg px-6 py-12 cursor-pointer transition-colors duration-200",
           dragActive ? "border-blue-500 bg-green-800/40" : "border-zinc-500"
         )}
       >
