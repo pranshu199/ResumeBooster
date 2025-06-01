@@ -16,6 +16,7 @@ function LogOutButton() {
     const { errorMessage } = await logOutAction();
     if (!errorMessage) {
       toast.success("Logged Out Successfuly");
+      router.push("/");
     } else {
       toast.error("Error while logout");
       router.push("/");

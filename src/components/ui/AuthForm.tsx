@@ -40,7 +40,7 @@ function AuthForm({ type }: Props) {
       }
       if (!errorMessage) {
         toast.success(description);
-        router.replace("/");
+        router.replace("/review");
       } else {
         toast.error("Error");
       }

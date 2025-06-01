@@ -1,62 +1,40 @@
-"use client";
-
 import { getUser } from "@/auth/server";
-import NoteTextInput from "@/components/ui/NoteTextInput";
-import ResumeUpload from "@/components/ui/ResumeUpload";
-import React, { useEffect, useState } from "react";
+import { redirect } from "next/navigation";
+import Link from "next/link";
 
-function HomePage() {
-  const [resumeText, setResumeText] = useState("");
-  const [jobDescription, setJobDescription] = useState("");
-  const [reviewResult, setReviewResult] = useState(null);
-  const [loading, setLoading] = useState(false);
+export const metadata = {
+  title: "Resume Booster AI",
+  description: "AI-powered resume feedback tool for job seekers",
+};
 
-  const handleSubmit = () => {
-    // setLoading(true);
-    // try {
-    //   const response = await fetch("/api/review", {
-    //     method: "POST",
-    //     body: JSON.stringify({ resumeText, jobDescription }),
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   });
-    //   const result = await response.json();
-    //   setReviewResult(result);
-    // } catch (err) {
-    //   console.error("Failed to get review:", err);
-    // } finally {
-    //   setLoading(false);
-    // }
-    useEffect(() => {}, [jobDescription, resumeText]);
-  };
+export default async function HomePage() {
+  const user = await getUser();
+  if (user) {
+    redirect("/review");
+  }
+
   return (
-    <div className="flex h-full flex-col items-center gap-4 p-6">
-      <ResumeUpload
-        onExtract={(text) => {
-          console.log("Extracted text:", text);
-          setResumeText(text);
-        }}
-      />
-      <NoteTextInput value={jobDescription} onChange={setJobDescription} />
-      <button
-        onClick={handleSubmit}
-        className="bg-indigo-600 text-white px-4 py-2 rounded"
-        disabled={!resumeText || !jobDescription || loading}
-      >
-        {loading ? "Analyzing..." : "Get AI Feedback"}
-      </button>
-
-      {reviewResult && (
-        <div className="mt-4 w-full max-w-3xl bg-zinc-800 text-white p-4 rounded-xl">
-          <h3 className="text-lg font-bold">Review Result</h3>
-          <pre className="mt-2 whitespace-pre-wrap text-sm">
-            {JSON.stringify(reviewResult, null, 2)}
-          </pre>
-        </div>
-      )}
-    </div>
+    <main className="h-screen overflow-hidden text-white flex items-center justify-center ">
+      <section className="max-w-3xl text-center -translate-y-20">
+        <h1 className="text-4xl sm:text-5xl font-bold mb-6 leading-tight">
+          Supercharge Your Job Hunt with{" "}
+          <span className="text-indigo-500">AI</span>
+        </h1>
+        <p className="text-lg text-zinc-400 mb-8">
+          Upload your resume and get instant, actionable feedback based on your
+          dream job description. Improve your chances of passing Applicant
+          Tracking Systems (ATS) and impress recruiters.
+        </p>
+        <Link
+          href="/login"
+          className="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-6 py-3 rounded-lg transition"
+        >
+          Get Started
+        </Link>
+        <p className="mt-4 text-sm text-zinc-500">
+          No account? Creating one takes less than 30 seconds.
+        </p>
+      </section>
+    </main>
   );
 }
-
-export default HomePage;
