@@ -27,7 +27,7 @@ export default async function HomePage() {
         </p>
         <Link
           href="/login"
-          className="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-6 py-3 rounded-lg transition"
+          className="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-2 py-1 rounded-lg transition"
         >
           Get Started
         </Link>

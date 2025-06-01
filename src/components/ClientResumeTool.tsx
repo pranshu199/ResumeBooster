@@ -59,7 +59,7 @@ export default function ClientResumeTool() {
           variant={"default"}
           onClick={handleSubmit}
           disabled={!resumeText || !jobDescription || loading}
-          className="bg-blue-900 text-white w-full mt-1 ml-1 rounded hover:bg-blue-500 transition-colors "
+          className="bg-blue-900 text-white w-full ml-1 rounded hover:bg-blue-500 transition-colors "
         >
           {loading ? "Analyzing..." : "Get AI Feedback"}
         </Button>
