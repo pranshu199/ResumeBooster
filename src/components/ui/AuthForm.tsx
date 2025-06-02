@@ -21,7 +21,8 @@ function AuthForm({ type }: Props) {
 
   const handleSubmit = (formData: FormData) => {
     startTransition(async () => {
-      const email = formData.get("email") as string;
+      const name = (formData.get("name") as string).trim();
+      const email = (formData.get("email") as string).toLowerCase().trim();
       const password = formData.get("password") as string;
 
       let errorMessage;
@@ -31,7 +32,7 @@ function AuthForm({ type }: Props) {
         errorMessage = result.errorMessage;
         description = "You have been succesfully logged in";
       } else {
-        const result = await signUpAction(email, password);
+        const result = await signUpAction(name, email, password);
         errorMessage = result.errorMessage;
         description = "Check your email for confirmation link";
       }
@@ -39,7 +40,7 @@ function AuthForm({ type }: Props) {
         toast.success(description);
         router.replace("/review");
       } else {
-        toast.error("Error");
+        toast.error(errorMessage);
       }
     });
   };
@@ -53,6 +54,19 @@ function AuthForm({ type }: Props) {
     >
       <CardContent className="grid w-full items-center gap-4">
         <Toaster richColors />
+        {!isLoginForm && (
+          <div className="flex flex-col space-y-1.5">
+            <Label htmlFor="name">Full Name</Label>
+            <Input
+              id="text"
+              name="name"
+              placeholder="Full Name"
+              type="text"
+              required
+              disabled={isPending}
+            />
+          </div>
+        )}
         <div className="flex flex-col space-y-1.5 ">
           <Label htmlFor="email">Email</Label>
           <Input

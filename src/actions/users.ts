@@ -27,12 +27,19 @@ export const logOutAction = async () => {
     return handleError(error);
   }
 };
-export const signUpAction = async (email: string, password: string) => {
+export const signUpAction = async (
+  name: string,
+  email: string,
+  password: string
+) => {
   try {
     const { auth } = await createClient();
     const { data, error } = await auth.signUp({
       email,
       password,
+      options: {
+        data: { name }, // Supabase user_metadata
+      },
     });
     if (error) throw error;
 
@@ -40,13 +47,16 @@ export const signUpAction = async (email: string, password: string) => {
     if (!userId) {
       throw new Error("Error while signing up");
     }
-    // add user to Database
+
+    // Save user with name in your database
     await prisma.user.create({
       data: {
         id: userId,
         email,
+        name, // ✅ add name here
       },
     });
+
     return { errorMessage: null };
   } catch (error) {
     return handleError(error);

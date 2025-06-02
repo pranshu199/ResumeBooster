@@ -9,6 +9,7 @@ generator client {
 
 model User {
   id        String   @id @default(uuid())
+  name      String
   email     String   @unique
   resumes   ResumeReview[]
   createdAt DateTime @default(now())

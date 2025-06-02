@@ -8,6 +8,7 @@ import LogoutButton from "./LogoutButton";
 
 async function Header() {
   const user = await getUser();
+  const userName = user?.user_metadata?.name;
 
   return (
     <header
@@ -29,7 +30,14 @@ async function Header() {
       </Link>
       <div className="flex gap-4">
         {user ? (
-          <LogoutButton />
+          <div className="flex items-center gap-3">
+            {userName && (
+              <p className="text-m text-zinc-400 hidden sm:inline">
+                Hi, {userName.split(" ")[0] || "there"} 👋
+              </p>
+            )}
+            <LogoutButton />
+          </div>
         ) : (
           <>
             <Button asChild variant="outline">
