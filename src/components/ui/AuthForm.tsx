@@ -21,9 +21,22 @@ function AuthForm({ type }: Props) {
 
   const handleSubmit = (formData: FormData) => {
     startTransition(async () => {
-      const name = (formData.get("name") as string).trim();
-      const email = (formData.get("email") as string).toLowerCase().trim();
-      const password = formData.get("password") as string;
+      const rawEmail = formData.get("email") as string;
+      const rawPassword = formData.get("password") as string;
+      const rawName = formData.get("name") as string;
+
+      if (
+        typeof rawEmail !== "string" ||
+        typeof rawPassword !== "string" ||
+        (!isLoginForm && typeof rawName !== "string")
+      ) {
+        toast.error("Please fill all required fields.");
+        return;
+      }
+
+      const email = rawEmail.trim().toLowerCase();
+      const password = rawPassword.trim();
+      const name = rawName?.trim();
 
       let errorMessage;
       let description;
